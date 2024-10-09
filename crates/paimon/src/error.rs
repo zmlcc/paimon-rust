@@ -65,6 +65,23 @@ pub enum Error {
         display("Paimon hitting invalid file index format: {}", message)
     )]
     FileIndexFormatInvalid { message: String },
+    #[snafu(
+        visibility(pub(crate)),
+        display("Paimon hitting unexpected arrow error: {:?}", source)
+    )]
+    ArrowError { source: arrow_schema::ArrowError },
+    #[snafu(
+        visibility(pub(crate)),
+        display("Paimon hitting unexpected io error: {:?}", source)
+    )]
+    IoError { source: std::io::Error },
+    #[snafu(
+        visibility(pub(crate)),
+        display("Paimon hitting unexpected parquet error: {:?}", source)
+    )]
+    ParquetError {
+        source: parquet::errors::ParquetError,
+    },
 }
 
 impl From<opendal::Error> for Error {

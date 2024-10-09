@@ -19,6 +19,7 @@ mod error;
 pub use error::Error;
 pub use error::Result;
 
+pub mod file_format;
 pub mod file_index;
 pub mod io;
 pub mod spec;

@@ -15,9 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-mod types;
+use super::parquet;
+use super::types::FormatReaderFactory;
 
-mod format;
-pub use format::*;
+pub enum FileFormat {
+    Parquet,
+}
 
-mod parquet;
+impl FileFormat {
+    pub fn create_reader_factory(&self) -> impl FormatReaderFactory {
+        match self {
+            FileFormat::Parquet => parquet::ParquetReaderFactory {},
+        }
+    }
+}
